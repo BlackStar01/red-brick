@@ -9,10 +9,14 @@
 :root {
     --primary: #10152B;
     --secondary: #D41A1A;
+    --third: #F3F3F3;
 }
 html
 {
     scroll-behavior: smooth;
     font-family: 'Nunito', sans-serif;
     color: var(--primary);
+}
+body {
+    background-color: #eee
 }

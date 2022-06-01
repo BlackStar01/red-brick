@@ -16,11 +16,12 @@ export class AppController {
     @Body('password') password: string,
   ) {
     const salt = await bcrypt.genSalt();
-    const hashPassword = await bcrypt.hash(password, salt, (err, hash) => {
+    console.log(salt);
+    /* const hashPassword = await bcrypt.hash(password, salt, (err, hash) => {
       if (err) return err;
 
       password = hash;
-    });
+    }); */
 
     return this.appService.create({
       firstName,
@@ -32,7 +33,7 @@ export class AppController {
     });
   }
 
-  /* @Post('login')
+  @Post('login')
   async login(
     @Body('email') email: string,
     @Body('password') password: string,
@@ -41,10 +42,10 @@ export class AppController {
     if (!user) {
       throw new BadRequestException('No user found ...');
     }
-    if (!(await bcrypt.compare(password, user.password))) {
+    if (!(password === user.password)) {
       throw new BadRequestException('No user found ...');
     }
 
     return user;
-  } */
+  }
 }
