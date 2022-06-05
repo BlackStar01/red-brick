@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import Home from '@/views/home.vue';
 import { createRouter, createWebHashHistory } from "vue-router";
+import i18n from './services/language/i18n';
 
 
 const routes = [
@@ -25,4 +26,4 @@ const router = createRouter({
 });
 
 
-createApp(App).use(router).mount('#app')
+i18n(createApp(App)).use(router).mount('#app')

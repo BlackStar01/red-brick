@@ -25,7 +25,7 @@ const products = ref([])
 
 onMounted(async () => {
     await axios
-        .get('https://fakestoreapi.com/products?limit=50')
+        .get('https://fakestoreapi.com/products?limit=30')
         .then(response => {
             products.value = response.data
         })
