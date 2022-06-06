@@ -49,6 +49,13 @@
 </template>
     
 <script setup>
+import { onMounted } from 'vue';
+
+onMounted(() => {
+    eventBus.on('test', (args) => {
+      alert(args)
+    })
+})
 
 </script>
     

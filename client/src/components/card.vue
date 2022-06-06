@@ -8,7 +8,7 @@
             <p style="color: gray;"> PRICE : </p>
             <div class="prices">
                 <span> {{ price }} € </span>
-                <strike> {{ strikeprice }} € </strike>
+                <s> {{ strikeprice }} € </s>
             </div>
         </div>
         <svg @click="fillsvg" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -68,6 +68,7 @@ const fillsvg = () => {
     else {
         like.value = ''
     }
+    eventBus.emit('test', 'Welcome to MNP!')
 }
 
 </script>

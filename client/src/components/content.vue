@@ -1,14 +1,16 @@
 <template>
-    
     <div class="main">
         <div class="filter">
-            <p> {{ products }} </p>
+            <p> <!-- {{ products }} --> </p>
         </div>
         <main>
             <h1> CATALOG </h1>
+            <div class="searcharea">
+                <search></search>
+            </div>
             <div class="products">
                 <card v-for="product in products" :key="product.id" :url="product.image" :alt="product.title"
-                    :title="product.title" :price="product.price" :category="product.category"></card>
+                    :title="product.title" :price="product.price" :category="product.category" @handle_like="handlelike"></card>
             </div>
         </main>
     </div>
@@ -16,12 +18,16 @@
     
 <script setup>
 
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref } from 'vue';
+import search from './search.vue';
 import axios from "axios";
-
 import card from './card.vue';
 
 const products = ref([])
+const nbr_favorites = ref(0)
+const handlelike = () => {
+    nbr_favorites.value++
+}
 
 onMounted(async () => {
     await axios
@@ -43,8 +49,8 @@ onMounted(async () => {
 .filter {
     position: fixed;
     width: 20%;
+    border-right: 1px solid #ccc;
     height: calc(100vh - 140px);
-    background-color: red;
     overflow-x: hidden;
 }
 
@@ -55,8 +61,12 @@ main {
 }
 main h1 {
     font-weight: bolder;
-    margin-top: 30px;
+    margin: 30px 0px;
     margin-left: 50px;
+}
+.searcharea {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
 }
 .products {
     padding: 30px;

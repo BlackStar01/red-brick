@@ -3,8 +3,6 @@
         <navbar></navbar>
         <topbar></topbar>
         <content></content>
-
-
     </div>
 </template>
     
