@@ -10,7 +10,7 @@
             </div>
             <div class="products">
                 <card v-for="product in products" :key="product.id" :url="product.image" :alt="product.title"
-                    :title="product.title" :price="product.price" :category="product.category" @handle_like="handlelike"></card>
+                    :title="product.title" :price="product.price" :category="product.category" @handle_like="handlelike" @empty='remove_like'></card>
             </div>
         </main>
     </div>
@@ -25,8 +25,16 @@ import card from './card.vue';
 
 const products = ref([])
 const nbr_favorites = ref(0)
+
 const handlelike = () => {
+    
     nbr_favorites.value++
+    send_like_to_home('send_like', nbr_favorites.value)
+}
+
+const remove_like = () => {
+    
+    nbr_favorites.value--
     send_like_to_home('send_like', nbr_favorites.value)
 }
 

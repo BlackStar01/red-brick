@@ -7,23 +7,29 @@
 </template>
     
 <script setup>
-import { provide, ref } from 'vue';
-import content from '../components/content.vue';
-import navbar from '../components/navbar.vue';
-import topbar from '../components/topbar.vue';
+import { provide, ref, watchEffect } from 'vue';
+import content from '@/components/content.vue';
+import navbar from '@/components/navbar.vue';
+import topbar from '@/components/topbar.vue';
 import { check_plural } from '@/services/utils/utils.js'
 
 const count_likes = ref(0)
-const words = ref('po')
+const words = ref('Favorite')
 
 const handle_like = (e) => {
     /* console.log(e) */
     count_likes.value = e
-    words.value = check_plural(count_likes.value, 'po')
+    words.value = check_plural(e, 'Favorite')
+
 }
 
+/* Watcheffect to do the change just one time ... increase performance */
+watchEffect(() => 
+    {
+        provide('mot', words)
+    }
+);
 provide('nbr_likes', count_likes)
-provide('mot', words.value)
 
 </script>
     
