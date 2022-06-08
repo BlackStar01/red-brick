@@ -29,7 +29,7 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span class="text"> Wish list - {{nbr_likes}} Elements </span>
+                    <span class="text"> Wish list - {{nbr_likes}} {{word}} </span>
                 </span>
             </router-link>
             <router-link to="/">
@@ -41,7 +41,7 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span class="text"> 02 Products ~ 1000 $ </span>
+                    <span class="text"> 02 Items ~ 1000 $ </span>
                 </span>
             </router-link>
         </div>
@@ -52,6 +52,8 @@
 import { inject } from 'vue';
 
 const nbr_likes = inject('nbr_likes')
+const word = inject('mot')
+console.log(word)
 
 </script>
     
