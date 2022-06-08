@@ -27,7 +27,7 @@
 </template>
     
 <script setup>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 
 defineProps({
     url: {
@@ -68,8 +68,9 @@ const fillsvg = () => {
     else {
         like.value = ''
     }
-    eventBus.emit('test', 'Welcome to MNP!')
+    send_like_to_content('handle_like')
 }
+const send_like_to_content = defineEmits(['handle_like'])
 
 </script>
     

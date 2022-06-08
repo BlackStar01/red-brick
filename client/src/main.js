@@ -3,8 +3,6 @@ import App from './App.vue'
 import Home from '@/views/home.vue';
 import { createRouter, createWebHashHistory } from "vue-router";
 import i18n from './services/language/i18n';
-import mitt from 'mitt'
-
 
 const routes = [
   {
@@ -26,7 +24,5 @@ const router = createRouter({
   routes,
 });
 
-const eventBus = mitt()
 const app = createApp(App)
-app.config.globalProperties.eventBus = eventBus
 i18n(app).use(router).mount('#app')

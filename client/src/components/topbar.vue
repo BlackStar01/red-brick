@@ -29,7 +29,7 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span class="text"> Wish list - 02 Elements </span>
+                    <span class="text"> Wish list - {{nbr_likes}} Elements </span>
                 </span>
             </router-link>
             <router-link to="/">
@@ -49,13 +49,9 @@
 </template>
     
 <script setup>
-import { onMounted } from 'vue';
+import { inject } from 'vue';
 
-onMounted(() => {
-    eventBus.on('test', (args) => {
-      alert(args)
-    })
-})
+const nbr_likes = inject('nbr_likes')
 
 </script>
     

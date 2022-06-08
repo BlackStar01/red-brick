@@ -27,7 +27,10 @@ const products = ref([])
 const nbr_favorites = ref(0)
 const handlelike = () => {
     nbr_favorites.value++
+    send_like_to_home('send_like', nbr_favorites.value)
 }
+
+const send_like_to_home = defineEmits('send_like')
 
 onMounted(async () => {
     await axios
