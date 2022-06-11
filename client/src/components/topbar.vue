@@ -5,7 +5,7 @@
                 <span class="iconhome">
                     <i class="gg-home"></i>
                 </span>
-                <span class="currentpath"> Main page <strong> > </strong> </span>
+                <span class="currentpath"> Main page > <strong style="color: gray;"> Catalogue </strong> </span>
             </span>
         </div>
         <div class="navelements">

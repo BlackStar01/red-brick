@@ -10,11 +10,22 @@ const routes = [
     component: Home,
     meta: { requiresAuth: false },
   },
-  /* {
-    path: "/home",
-    name: "Home",
-    component: () => import("@/views/Home.vue"),
-  }, */
+  {
+    path: "/auth",
+    name: "auth",
+    component: () => import("@/views/auth.vue"),
+    children: [
+      {
+        path: 'register',
+        component: () => import("@/views/auth.vue"),
+      },
+      /* {
+        path: 'login',
+        component: () => import("@/views/Home.vue"),
+      } */
+    ]
+    
+  },
   
   /* { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound }, */
 ];

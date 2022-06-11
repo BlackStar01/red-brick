@@ -20,7 +20,6 @@ const handle_like = (e) => {
     /* console.log(e) */
     count_likes.value = e
     words.value = check_plural(e, 'Favorite')
-
 }
 
 /* Watcheffect to do the change just one time ... increase performance */

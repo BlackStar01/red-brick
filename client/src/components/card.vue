@@ -50,10 +50,6 @@ defineProps({
         type: Number,
         required: true,
     },
-    wish: {
-        type: Boolean,
-        default: 0
-    },
     strikeprice: {
         type: Number,
         default: 0,
@@ -64,13 +60,14 @@ const like = ref('evenodd')
 const fillsvg = () => {
     if (like.value === '' ) {
         like.value = 'evenodd'
+        send_like_to_content('dis_like')
     }
     else {
         like.value = ''
+        send_like_to_content('handle_like')
     }
-    send_like_to_content('handle_like')
 }
-const send_like_to_content = defineEmits(['handle_like'])
+const send_like_to_content = defineEmits(['handle_like', 'dis_like'])
 
 </script>
     

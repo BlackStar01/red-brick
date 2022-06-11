@@ -1,7 +1,9 @@
 <template>
     <div class="main">
         <div class="filter">
-            <p> <!-- {{ products }} --> </p>
+            <p>
+                <!-- {{ products }} -->
+            </p>
         </div>
         <main>
             <h1> CATALOG </h1>
@@ -10,7 +12,8 @@
             </div>
             <div class="products">
                 <card v-for="product in products" :key="product.id" :url="product.image" :alt="product.title"
-                    :title="product.title" :price="product.price" :category="product.category" @handle_like="handlelike" @empty='remove_like'></card>
+                    :title="product.title" :price="product.price" :category="product.category" @handle_like="handlelike"
+                    @dis_like="remove_like" @empty='remove_like'></card>
             </div>
         </main>
     </div>
@@ -27,13 +30,12 @@ const products = ref([])
 const nbr_favorites = ref(0)
 
 const handlelike = () => {
-    
+
     nbr_favorites.value++
     send_like_to_home('send_like', nbr_favorites.value)
 }
 
 const remove_like = () => {
-    
     nbr_favorites.value--
     send_like_to_home('send_like', nbr_favorites.value)
 }
@@ -70,15 +72,18 @@ main {
     margin-left: 20%;
     width: 80%;
 }
+
 main h1 {
     font-weight: bolder;
     margin: 30px 0px;
     margin-left: 50px;
 }
+
 .searcharea {
     display: grid;
     grid-template-columns: 2fr 1fr;
 }
+
 .products {
     padding: 30px;
     display: grid;
