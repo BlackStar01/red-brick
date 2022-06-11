@@ -11,7 +11,7 @@ import {
 import { AppService } from './app.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { Response, Request } from 'express';
+import { Response, Request, response } from 'express';
 
 @Controller('api')
 export class AppController {
@@ -31,20 +31,20 @@ export class AppController {
   ) {
     const salt = await bcrypt.genSalt();
     console.log(salt);
-    /* const hashPassword = await bcrypt.hash(password, salt, (err, hash) => {
-      if (err) return err;
+    const hashPassword = await bcrypt.hash(password, 12);
 
-      password = hash;
-    }); */
-
-    return this.appService.create({
+    const user = await this.appService.create({
       firstName,
       lastName,
       email,
       telephone,
       address,
-      password,
+      password: hashPassword,
     });
+
+    delete user.password;
+
+    return user;
   }
 
   @Post('login')
@@ -57,8 +57,8 @@ export class AppController {
     if (!user) {
       throw new BadRequestException('No user found ...');
     }
-    if (!(password === user.password)) {
-      throw new BadRequestException('No user found ...');
+    if (!(await bcrypt.compare(password, user.password))) {
+      throw new BadRequestException('Incorrect password ');
     }
 
     const jwt = await this.jwtService.signAsync({ id: user.id });
@@ -75,9 +75,18 @@ export class AppController {
       const cookie = request.cookies['jwt'];
       const data = await this.jwtService.verifyAsync(cookie); // there is a probleme here
       const user = await this.appService.findOne({ id: data['id'] });
-      return user;
+      return user.firstName + ' ' + user.lastName;
     } catch (error) {
       throw new UnauthorizedException();
     }
+  }
+
+  @Post('logout')
+  async logout(@Res({ passthrough: true }) response: Response) {
+    response.clearCookie('jwt');
+
+    return {
+      message: 'Logout successfully',
+    };
   }
 }
