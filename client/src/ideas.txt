@@ -1,3 +1,5 @@
 Code promo
 
 Finir la language selector avec i18n
+
+Faire le panier en popup m=boite modale

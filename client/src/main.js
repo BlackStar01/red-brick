@@ -13,18 +13,7 @@ const routes = [
   {
     path: "/auth",
     name: "auth",
-    component: () => import("@/views/auth.vue"),
-    children: [
-      {
-        path: 'register',
-        component: () => import("@/views/auth.vue"),
-      },
-      /* {
-        path: 'login',
-        component: () => import("@/views/Home.vue"),
-      } */
-    ]
-    
+    component: () => import("@/views/auth.vue"),    
   },
   
   /* { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound }, */
