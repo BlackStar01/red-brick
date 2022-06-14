@@ -13,7 +13,8 @@
             <div class="products">
                 <card v-for="product in products" :key="product.id" :url="product.image" :alt="product.title"
                     :title="product.title" :price="product.price" :category="product.category" @handle_like="handlelike"
-                    @dis_like="remove_like" @empty='remove_like'></card>
+                    @dis_like="remove_like" @item_clicked="add_item(product)">
+                </card>
             </div>
         </main>
     </div>
@@ -30,17 +31,21 @@ const products = ref([])
 const nbr_favorites = ref(0)
 
 const handlelike = () => {
-
     nbr_favorites.value++
-    send_like_to_home('send_like', nbr_favorites.value)
+    send_to_home('send_like', nbr_favorites.value)
 }
 
 const remove_like = () => {
     nbr_favorites.value--
-    send_like_to_home('send_like', nbr_favorites.value)
+    send_to_home('send_like', nbr_favorites.value)
 }
 
-const send_like_to_home = defineEmits('send_like')
+const add_item = (e) => {
+    /* JSON.parse(JSON.stringify(e)) to get de target in a proxy */
+    send_to_home('send_item', JSON.parse(JSON.stringify(e)))
+}
+
+const send_to_home = defineEmits('send_like', 'send_item')
 
 onMounted(async () => {
     await axios

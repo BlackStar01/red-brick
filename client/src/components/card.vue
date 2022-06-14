@@ -67,7 +67,7 @@ const fillsvg = () => {
         send_something_to_content('handle_like')
     }
 }
-const add_to_cart = (e) => {
+const add_to_cart = () => {
     send_something_to_content('item_clicked')
 }
 const send_something_to_content = defineEmits(['handle_like', 'dis_like', 'item_clicked'])

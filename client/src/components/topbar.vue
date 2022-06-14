@@ -41,7 +41,7 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span class="text"> 02 Items ~ 1000 $ </span>
+                    <span class="text"> {{subtotal.nbr_items}} Items ~ {{subtotal.amount}} € </span>
                 </span>
             </router-link>
         </div>
@@ -53,6 +53,7 @@ import { inject } from 'vue';
 
 const nbr_likes = inject('nbr_likes')
 const mot = inject('mot')
+const subtotal = inject('cart_updated')
 
 </script>
     
