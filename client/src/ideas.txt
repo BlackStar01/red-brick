@@ -3,3 +3,5 @@ Code promo
 Finir la language selector avec i18n
 
 Faire le panier en popup m=boite modale
+
+Utiliser les components que j'ai crée pour les erreur pour display ça dans le cas du login mail .. 

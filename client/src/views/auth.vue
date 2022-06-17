@@ -16,13 +16,13 @@
                                 <img src="@/assets/logo.png" alt="" />
                                 <h3> Login just here ...</h3>
                         </div>
-                        <forminput :svg_value="inputs.login.email.svg" :placeholder="inputs.login.email.placeholder"
-                                :type="inputs.login.email.type"></forminput>
-                        <forminput :svg_value="inputs.login.password.svg"
+                        <forminput class="login_input" :svg_value="inputs.login.email.svg"
+                                :placeholder="inputs.login.email.placeholder" :type="inputs.login.email.type">
+                        </forminput>
+                        <forminput class="login_input" :svg_value="inputs.login.password.svg"
                                 :placeholder="inputs.login.password.placeholder" :type="inputs.login.password.type">
                         </forminput>
-                        <formbutton :type="'submit'" > Login </formbutton>
-                        
+                        <formbutton :type="'submit'"> Login </formbutton>
                         <small :onclick="forgot"> Forgot my password ? </small>
                 </form>
         </div>
@@ -33,13 +33,31 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import forminput from '@/components/Form/forminput.vue'
 import formbutton from '@/components/Form/formbtn.vue'
+import axios from 'axios';
+import { check_mail } from '../services/authentification/auth';
+
 const action = ref('login')
 
 const route = useRoute();
 console.log(`${route.name}`);
 
-const try_login = () => {
-        console.log("login ...")
+const try_login = async () => {
+        let inputs = window.document.getElementsByClassName('login_input');
+        const mail = inputs[0].childNodes[1].value
+        const password = inputs[1].childNodes[1].value
+
+        if (check_mail(mail)) {
+                await axios.post('http://localhost:8000/api/login', {
+                        "email": mail,
+                        "password": password
+                })
+                        .then(function (response) {
+                                console.log(response);
+                        })
+                        .catch(function (error) {
+                                console.log(error);
+                        })
+        }
 }
 
 const forgot = () => {
@@ -80,10 +98,13 @@ const inputs = ref({
         width: 60px;
         height: 60px;
 }
+
 small {
         cursor: pointer;
 }
-small:focus, small:hover {
+
+small:focus,
+small:hover {
         color: var(--secondary);
         text-decoration: underline;
 }
