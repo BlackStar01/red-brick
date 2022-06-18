@@ -1,6 +1,7 @@
 <template>
     <div class="main">
         <div class="filter">
+            <range :max="max_price"></range>            
             <p>
                 <!-- {{ products }} -->
             </p>
@@ -26,9 +27,12 @@ import { onMounted, ref } from 'vue';
 import search from './search.vue';
 import axios from "axios";
 import card from './card.vue';
+import range from './Filter/range.vue';
+import { check_max_price } from '../services/utils/utils';
 
 const products = ref([])
 const nbr_favorites = ref(0)
+const max_price = ref(0)
 
 const handlelike = () => {
     nbr_favorites.value++
@@ -52,6 +56,7 @@ onMounted(async () => {
         .get('https://fakestoreapi.com/products?limit=30')
         .then(response => {
             products.value = response.data
+            max_price.value = check_max_price(products._rawValue)
         })
 })
 

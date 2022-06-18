@@ -14,7 +14,7 @@
                 <form v-if="action === 'login'" :onsubmit="try_login">
                         <div class="top">
                                 <img src="@/assets/logo.png" alt="" />
-                                <h3> Login just here ...</h3>
+                                <h3> RED LOGIN </h3>
                         </div>
                         <forminput class="login_input" :svg_value="inputs.login.email.svg"
                                 :placeholder="inputs.login.email.placeholder" :type="inputs.login.email.type">
@@ -24,21 +24,25 @@
                         </forminput>
                         <formbutton :type="'submit'"> Login </formbutton>
                         <small :onclick="forgot"> Forgot my password ? </small>
+                        <br><br>
+                        <small :onclick="go_register"> I don't have yet an account ! </small>
                 </form>
         </div>
 
 </template>
 <script setup>
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import forminput from '@/components/Form/forminput.vue'
 import formbutton from '@/components/Form/formbtn.vue'
 import axios from 'axios';
-import { check_mail } from '../services/authentification/auth';
+import { check_mail } from '../services/utils/utils';
 
 const action = ref('login')
 
 const route = useRoute();
+const router = useRouter()
+
 console.log(`${route.name}`);
 
 const try_login = async () => {
@@ -51,18 +55,24 @@ const try_login = async () => {
                         "email": mail,
                         "password": password
                 })
-                        .then(function (response) {
-                                console.log(response);
-                        })
-                        .catch(function (error) {
-                                console.log(error);
-                        })
+                .then((response) => {
+                        console.log(response)
+                        localStorage.setItem('current_user', response.data);
+                        /* router.push('/') */
+                })
+                .catch((error) => {
+                        console.log(error);
+                })
         }
 }
 
 const forgot = () => {
         console.log('forgot')
         action.value = 'forgot_password'
+}
+
+const go_register = () => {
+        action.value = 'register'
 }
 
 const inputs = ref({
@@ -79,7 +89,6 @@ const inputs = ref({
                 }
         }
 })
-
 </script>
     
 <style scoped>

@@ -26,3 +26,5 @@ const router = createRouter({
 
 const app = createApp(App)
 i18n(app).use(router).mount('#app')
+
+export default router

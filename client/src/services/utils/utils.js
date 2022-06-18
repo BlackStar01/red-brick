@@ -16,3 +16,22 @@ export const check_number = (number) => {
         return number
     }
 }
+
+export const check_mail = (mail) => {
+    if(mail.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/)) {
+        return true
+    }
+    else {
+        return false
+    }
+}
+
+export const check_max_price = (tab) => {
+    let max_price = tab[0].price
+    for (const item of tab) {
+        if (max_price < item.price) {
+            max_price = item.price
+        }
+    }
+    return max_price
+}

@@ -29,7 +29,7 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span class="text"> Wish list - {{nbr_likes}} {{mot}} </span>
+                    <span class="text"> Wish list - {{ nbr_likes }} {{ mot }} </span>
                 </span>
             </router-link>
             <router-link to="/">
@@ -41,7 +41,7 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span class="text"> {{subtotal.nbr_items}} Items ~ {{subtotal.amount}} € </span>
+                    <span class="text"> {{ subtotal.nbr_items }} Items ~ {{ subtotal.amount }} € </span>
                 </span>
             </router-link>
         </div>
@@ -49,11 +49,29 @@
 </template>
     
 <script setup>
+/* import axios from 'axios'; */
 import { inject } from 'vue';
+
+/* const get_current_user = async () => {
+    await axios.get('http://localhost:8000/api/user')
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+} */
+/* 
+onMounted(() => {
+  get_current_user();
+}) */
 
 const nbr_likes = inject('nbr_likes')
 const mot = inject('mot')
 const subtotal = inject('cart_updated')
+
+const cat = localStorage.getItem('myCat');
+
 
 </script>
     

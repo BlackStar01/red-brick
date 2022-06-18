@@ -11,7 +11,7 @@ import {
 import { AppService } from './app.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { Response, Request, response } from 'express';
+import { Response, Request } from 'express';
 
 @Controller('api')
 export class AppController {
@@ -64,16 +64,14 @@ export class AppController {
     const jwt = await this.jwtService.signAsync({ id: user.id });
     response.cookie('jwt', jwt, { httpOnly: true });
 
-    return {
-      message: 'Login with success',
-    };
+    return jwt;
   }
 
   @Get('user')
   async getCurrentUser(@Req() request: Request) {
     try {
       const cookie = request.cookies['jwt'];
-      const data = await this.jwtService.verifyAsync(cookie); // there is a probleme here
+      const data = await this.jwtService.verifyAsync(cookie);
       const user = await this.appService.findOne({ id: data['id'] });
       return user.firstName + ' ' + user.lastName;
     } catch (error) {

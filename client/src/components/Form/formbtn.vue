@@ -10,10 +10,6 @@ defineProps({
         type: String,
         required: true
     },
-    placeholder: {
-        type: String,
-        required: true
-    }
 })
 </script>
     
