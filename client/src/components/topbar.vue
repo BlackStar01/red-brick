@@ -33,7 +33,7 @@
                 </span>
             </router-link>
             <router-link to="/">
-                <span>
+                <span @click="open">
                     <span class="icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -45,12 +45,17 @@
                 </span>
             </router-link>
         </div>
+        <teleport to='body'>
+            <div class="modal" v-if="open = true">
+                <h1>qeghv</h1>
+            </div>
+        </teleport>
     </div>
 </template>
     
 <script setup>
 /* import axios from 'axios'; */
-import { inject } from 'vue';
+import { inject, ref } from 'vue';
 
 /* const get_current_user = async () => {
     await axios.get('http://localhost:8000/api/user')
@@ -65,7 +70,7 @@ import { inject } from 'vue';
 onMounted(() => {
   get_current_user();
 }) */
-
+const open = ref(true)
 const nbr_likes = inject('nbr_likes')
 const mot = inject('mot')
 const subtotal = inject('cart_updated')

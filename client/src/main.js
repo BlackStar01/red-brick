@@ -3,6 +3,7 @@ import App from './App.vue'
 import Home from '@/views/home.vue';
 import { createRouter, createWebHashHistory } from "vue-router";
 import i18n from './services/language/i18n';
+import { createPinia } from 'pinia'
 
 const routes = [
   {
@@ -24,7 +25,8 @@ const router = createRouter({
   routes,
 });
 
+const pinia = createPinia()
 const app = createApp(App)
-i18n(app).use(router).mount('#app')
+i18n(app).use(router).use(pinia).mount('#app')
 
 export default router
