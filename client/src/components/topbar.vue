@@ -45,11 +45,11 @@
                 </span>
             </router-link>
         </div>
-        <teleport to='body'>
+        <!-- <teleport to='body'>
             <div class="modal" v-if="open = true">
                 <h1>qeghv</h1>
             </div>
-        </teleport>
+        </teleport> -->
     </div>
 </template>
     
@@ -81,6 +81,9 @@ const cat = localStorage.getItem('myCat');
 </script>
     
 <style scoped>
+.modal {
+    background-color: rebeccapurple;
+}
 .nav {
     z-index: 1;
     margin-top: 80px;
