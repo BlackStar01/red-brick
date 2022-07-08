@@ -41,21 +41,18 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span class="text"> {{ subtotal.nbr_items }} Items ~ {{ subtotal.amount }} € </span>
+                    <span class="text" @click="openCart = true"> {{ subtotal.nbr_items }} {{ subtotal.word }} ~ {{ subtotal.amount }} € </span>
                 </span>
             </router-link>
         </div>
-        <!-- <teleport to='body'>
-            <div class="modal" v-if="open = true">
-                <h1>qeghv</h1>
-            </div>
-        </teleport> -->
+        <modal></modal>
     </div>
 </template>
     
 <script setup>
 /* import axios from 'axios'; */
-import { inject, ref } from 'vue';
+import { inject, ref, provide } from 'vue';
+import modal from './modal.vue';
 
 /* const get_current_user = async () => {
     await axios.get('http://localhost:8000/api/user')
@@ -74,8 +71,10 @@ const open = ref(true)
 const nbr_likes = inject('nbr_likes')
 const mot = inject('mot')
 const subtotal = inject('cart_updated')
+const openCart = ref(false)
 
 const cat = localStorage.getItem('myCat');
+provide('modalCart', openCart)
 
 
 </script>

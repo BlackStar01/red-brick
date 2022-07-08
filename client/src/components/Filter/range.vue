@@ -5,8 +5,8 @@
             <span> <small> Up To : </small> {{ maxvalue }} </span>    
         </div>
         <div class="inputs">
-            <input  type="range" @mouseup="ddd" min="0" :max="max/2" v-model="minvalue" step="10">
-            <input type="range" :min="max/2" :max="max" v-model="maxvalue" step="10">
+            <input  type="range" @mouseup="handle_min" min="0" :max="Math.trunc(max/2)" v-model="minvalue" step="10">
+            <input type="range" @mouseup="handle_max" :min="Math.trunc((max/2)+10)" :max="max" v-model="maxvalue" step="10">
         </div>
     </div>
 </template>
@@ -23,8 +23,11 @@ defineProps({
 
 const minvalue = ref(0)
 const maxvalue = ref(0)
-const ddd = () => {
-    console.log("dgjvh")
+const handle_min = () => {
+    return minvalue
+}
+const handle_max = () => {
+    return maxvalue
 }
 </script>
 
