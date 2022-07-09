@@ -16,10 +16,15 @@ Il s'agit d'un site e-commerce dont la maquette a été prise sur DRIBBLE :) :) 
 
 # API 
 
+Commencer par configurer la base de données POSTGRES SQL.
+Créer une base de données redbrick.
+
 `npm run i`  pour installer toutes les dépendances
 `npm run dev` pour rouler le serveur ... 
+`NODEJS >= 16 is required for backend`
 
 # CLIENT
 
 `npm i` 
 `npm run dev`
+
