@@ -4,3 +4,4 @@ Faire le panier en popup m=boite modale
 Utiliser les components que j'ai crée pour les erreur pour display ça dans le cas du login mail .. 
 Problem of found the user of token created
 /* There is a bug with the max price */
+v-if le panier est vide, alors , pas de bouton valider la commande
