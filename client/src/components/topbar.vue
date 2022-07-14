@@ -67,7 +67,9 @@ import modal from './modal.vue';
 onMounted(() => {
   get_current_user();
 }) */
-const open = ref(true)
+const open = () => {
+    return true
+}
 const nbr_likes = inject('nbr_likes')
 const mot = inject('mot')
 const subtotal = inject('cart_updated')

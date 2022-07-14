@@ -4,20 +4,32 @@
             <img src="../assets/logo.png" alt="">
         </div>
         <div class="center">
-            <p><strong> Nom du produit </strong></p>
+            <p><strong> <slot></slot> </strong></p>
             <div class="quantity">
-                <button> - </button>
-                <span> 5 </span>
-                <button> + </button>
+                <button @click="reduceQuantity"> - </button>
+                <span> {{quantity}} </span>
+                <button @click="addQuantity"> + </button>
             </div>
         </div>
         <div class="right">
-            <p> 50, 50 €</p>
+            <p> {{computedPrice}} €</p>
         </div>
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
+defineProps({
+    quantity: {
+        type: Number,
+        required: true
+    },
+    computedPrice: {
+        type: String,
+        required: true
+    }
+})
 
 </script>
 
@@ -48,6 +60,10 @@ img {
     margin: 0px 20px;
 }
 button {
-    padding: 10px 20px;
+    padding: 8px 15px;
+    border: 1px solid var(--secondary);
+    color: var(--secondary);
+    background-color: transparent;
+    cursor: pointer;
 }
 </style>

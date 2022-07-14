@@ -30,7 +30,10 @@
                         </div>
                     </div>
                     <hr>
-                    <modalCard></modalCard>
+                    <modalCard :quantity="store_cart.getItems[0].number"> {{store_cart.getItems[0].item.title}} </modalCard>
+                    <!-- <modalCard v-for="item_in_cart in get_items" >
+                        {{item_in_cart.item.title}}
+                    </modalCard> -->
                     <h2> {{ isOpen }} zrzc </h2>
                     <h2> {{ isOpen }} zrzc </h2>
                     <h2> {{ isOpen }} zrzc </h2>
@@ -44,7 +47,9 @@
 <script setup>
 import { ref, inject } from 'vue';
 import modalCard from './modalCard.vue';
+import { useCart } from '@/store/cartStore.js'
 
+const store_cart = useCart()
 const isOpen = inject('modalCart')
 
 </script>

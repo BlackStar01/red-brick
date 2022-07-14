@@ -51,6 +51,7 @@ const add_item = (e) => {
     /* JSON.parse(JSON.stringify(e)) to get de target in a proxy */
     send_to_home('send_item', JSON.parse(JSON.stringify(e)))
     store_cart.add_item({'item': JSON.parse(JSON.stringify(e)), 'number': 1 })
+    console.log(store_cart.getItems)
 }
 
 const send_to_home = defineEmits('send_like', 'send_item')

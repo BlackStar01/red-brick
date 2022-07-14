@@ -6,6 +6,11 @@ export const useCart = defineStore("cart_items", {
       items: [],
     };
   },
+  getters: {
+    getItems(state) {
+      return JSON.parse(JSON.stringify(state.items))
+    },
+  },
   actions: {
     add_item(new_item) {
       if (this.items.find((element) => element.item.id === new_item.item.id)) {
