@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="left">
-            <img src="../assets/logo.png" alt="">
+            <img :src="image" alt="">
         </div>
         <div class="center">
             <p><strong> <slot></slot> </strong></p>
@@ -21,12 +21,16 @@
 import { ref } from 'vue';
 
 defineProps({
+    image: {
+        type: String,
+        required: true
+    },
     quantity: {
         type: Number,
         required: true
     },
     computedPrice: {
-        type: String,
+        type: Number,
         required: true
     }
 })
@@ -41,7 +45,7 @@ img {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     padding: 40px;
-    background-color: var(--fourth);
+    margin: 10px 0px;
     border: 1px solid #ccc;
     border-radius: 10px;
 }

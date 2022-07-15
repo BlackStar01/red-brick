@@ -30,11 +30,11 @@
                         </div>
                     </div>
                     <hr>
-                    <modalCard :quantity="store_cart.getItems[0].number"> {{store_cart.getItems[0].item.title}} </modalCard>
+                    <modalCard v-for="item_in_cart in store_cart.getItems" :image="item_in_cart.item.image" :quantity="item_in_cart.number" :computedPrice="item_in_cart.number*item_in_cart.item.price"> {{item_in_cart.item.title}} </modalCard>
                     <!-- <modalCard v-for="item_in_cart in get_items" >
                         {{item_in_cart.item.title}}
                     </modalCard> -->
-                    <h2> {{ isOpen }} zrzc </h2>
+                    <h2> {{ isOpen }} zrzc </h2>é
                     <h2> {{ isOpen }} zrzc </h2>
                     <h2> {{ isOpen }} zrzc </h2>
 
@@ -51,7 +51,6 @@ import { useCart } from '@/store/cartStore.js'
 
 const store_cart = useCart()
 const isOpen = inject('modalCart')
-
 </script>
 
 <style scoped>
