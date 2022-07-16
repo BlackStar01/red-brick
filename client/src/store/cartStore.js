@@ -20,5 +20,8 @@ export const useCart = defineStore("cart_items", {
         this.items.push(new_item);
       }
     },
+    delete_item(position) {
+      this.items.splice(position, 1)
+    },
   },
 });

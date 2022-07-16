@@ -26,17 +26,20 @@
                             <h2><strong> MON PANIER </strong></h2>
                             <p style="color: gray;"> À noter qu'aucun article ne sera retourné au delà de 30 jours à
                                 compter de la date de liovraison effective. </p>
-                            <p style="color: gray;"> Conctactez le <a href="">service client</a> pour toute information supplémentaire</p>
+                            <p style="color: gray;"> Conctactez le <a href="">service client</a> pour toute information
+                                supplémentaire</p>
                         </div>
                     </div>
                     <hr>
-                    <modalCard v-for="item_in_cart in store_cart.getItems" :image="item_in_cart.item.image" :quantity="item_in_cart.number" :computedPrice="item_in_cart.number*item_in_cart.item.price"> {{item_in_cart.item.title}} </modalCard>
+                    <modalCard v-for="item_in_cart in store_cart.getItems" :image="item_in_cart.item.image"
+                        :quantity="item_in_cart.number" :computedPrice="item_in_cart.number * item_in_cart.item.price"
+                        @click="deleteItem(item_in_cart)">
+                        {{ item_in_cart.item.title }}
+                    </modalCard>
                     <!-- <modalCard v-for="item_in_cart in get_items" >
                         {{item_in_cart.item.title}}
                     </modalCard> -->
                     <h2> {{ isOpen }} zrzc </h2>é
-                    <h2> {{ isOpen }} zrzc </h2>
-                    <h2> {{ isOpen }} zrzc </h2>
 
                 </div>
             </div>
@@ -48,9 +51,13 @@
 import { ref, inject } from 'vue';
 import modalCard from './modalCard.vue';
 import { useCart } from '@/store/cartStore.js'
-
+import { element_index_in_array } from '@/services/utils/utils'
 const store_cart = useCart()
 const isOpen = inject('modalCart')
+
+const deleteItem = (e) => {
+    store_cart.delete_item(element_index_in_array(JSON.parse(JSON.stringify(store_cart)).getItems, e))
+}
 </script>
 
 <style scoped>
@@ -77,7 +84,7 @@ const isOpen = inject('modalCart')
     padding: 50px;
     border-radius: 10px;
     overflow-y: scroll;
-        position: relative;
+    position: relative;
 
 }
 
@@ -107,9 +114,11 @@ button {
     display: grid;
     place-items: center;
 }
+
 .details {
     width: 60%;
 }
+
 hr {
     margin: 40px 0px;
     border-top: 0px;
