@@ -23,5 +23,8 @@ export const useCart = defineStore("cart_items", {
     delete_item(position) {
       this.items.splice(position, 1)
     },
+    increase_number() {
+        
+    }
   },
 });

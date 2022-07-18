@@ -25,21 +25,46 @@
                         <div class="details">
                             <h2><strong> MON PANIER </strong></h2>
                             <p style="color: gray;"> À noter qu'aucun article ne sera retourné au delà de 30 jours à
-                                compter de la date de liovraison effective. </p>
+                                compter de la date de livraison effective. </p>
                             <p style="color: gray;"> Conctactez le <a href="">service client</a> pour toute information
                                 supplémentaire</p>
                         </div>
                     </div>
                     <hr>
+                    <div class="empty" v-if="store_cart.getItems.length === 0">
+                        <img src="@/assets/empty.svg" alt="Empty cart">
+                        <h4 style="color: var(--secondary);"> Your cart is empty </h4>
+                        <small> Add somthing to make me happy for real :-) </small>
+                    </div>
                     <modalCard v-for="item_in_cart in store_cart.getItems" :image="item_in_cart.item.image"
-                        :quantity="item_in_cart.number" :computedPrice="item_in_cart.number * item_in_cart.item.price"
-                        @click="deleteItem(item_in_cart)">
+                        :quantity="item_in_cart.number" :computedPrice="item_in_cart.number * item_in_cart.item.price">
                         {{ item_in_cart.item.title }}
+                        <template v-slot:reduceQuantity>
+                            <button class="handleQuantity" @click="reduceQuantity"> - </button>
+                        </template>
+                        <template v-slot:addQuantity>
+                            <button class="handleQuantity" @click="addQuantity"> + </button>
+                        </template>
+                        <template v-slot:btnDelete>
+                            <svg @click="deleteItem(item_in_cart)" class="trashIcon" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M17 5V4C17 2.89543 16.1046 2 15 2H9C7.89543 2 7 2.89543 7 4V5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5V18C5 19.6569 6.34315 21 8 21H16C17.6569 21 19 19.6569 19 18V7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H17ZM15 4H9V5H15V4ZM17 7H7V18C7 18.5523 7.44772 19 8 19H16C16.5523 19 17 18.5523 17 18V7Z"
+                                    fill="currentColor" />
+                                <path d="M9 9H11V17H9V9Z" fill="currentColor" />
+                                <path d="M13 9H15V17H13V9Z" fill="currentColor" />
+                            </svg>
+                        </template>
                     </modalCard>
-                    <!-- <modalCard v-for="item_in_cart in get_items" >
-                        {{item_in_cart.item.title}}
-                    </modalCard> -->
-                    <h2> {{ isOpen }} zrzc </h2>é
+                    <button class="pay" @click="goPayement" v-if="store_cart.getItems.length !== 0">
+                        <svg class="iconLock" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M18 10.5C19.6569 10.5 21 11.8431 21 13.5V19.5C21 21.1569 19.6569 22.5 18 22.5H6C4.34315 22.5 3 21.1569 3 19.5V13.5C3 11.8431 4.34315 10.5 6 10.5V7.5C6 4.18629 8.68629 1.5 12 1.5C15.3137 1.5 18 4.18629 18 7.5V10.5ZM12 3.5C14.2091 3.5 16 5.29086 16 7.5V10.5H8V7.5C8 5.29086 9.79086 3.5 12 3.5ZM18 12.5H6C5.44772 12.5 5 12.9477 5 13.5V19.5C5 20.0523 5.44772 20.5 6 20.5H18C18.5523 20.5 19 20.0523 19 19.5V13.5C19 12.9477 18.5523 12.5 18 12.5Z"
+                                fill="currentColor" />
+                        </svg>
+                        Procéder au paiement
+                    </button>
+                    <!-- <h2> {{ isOpen }} zrzc </h2> -->
 
                 </div>
             </div>
@@ -57,6 +82,15 @@ const isOpen = inject('modalCart')
 
 const deleteItem = (e) => {
     store_cart.delete_item(element_index_in_array(JSON.parse(JSON.stringify(store_cart)).getItems, e))
+}
+const reduceQuantity = () => {
+    
+}
+const addQuantity = () => {
+
+}
+const goPayement = () => {
+
 }
 </script>
 
@@ -94,7 +128,7 @@ const deleteItem = (e) => {
     gap: 25px;
 }
 
-button {
+.topmodal button {
     cursor: pointer;
     position: absolute;
     top: 30px;
@@ -104,6 +138,22 @@ button {
     border: 1px solid var(--secondary);
     border-radius: 50%;
     background-color: transparent;
+}
+
+.empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.empty img {
+    height: 150px;
+}
+
+.empty h4 {
+    margin-top: 40px;
 }
 
 .cartIcon {
@@ -123,5 +173,50 @@ hr {
     margin: 40px 0px;
     border-top: 0px;
     border-color: var(--fourth);
+}
+
+.trashIcon {
+    margin: 0px 25px;
+}
+
+.trashIcon:hover {
+    cursor: pointer;
+    color: var(--secondary);
+}
+
+.handleQuantity {
+    padding: 8px 15px;
+    border: 1px solid var(--secondary);
+    color: var(--secondary);
+    background-color: transparent;
+    transition: all 100ms;
+}
+.handleQuantity:hover {
+    cursor: pointer;
+    border: 1px solid var(--secondary);
+    background-color: var(--secondary);
+    color: white;
+}
+.pay {
+    border: 1px solid var(--secondary);
+    border-radius: 10px;
+    background-color: var(--secondary);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 0px;
+    transition: all 150ms;
+}
+.pay:hover {
+    cursor: pointer;
+    border: 1px solid var(--secondary);
+    background-color: transparent;
+    color: var(--secondary);
+}
+.pay .iconLock {
+    margin: 0px 15px;
 }
 </style>
