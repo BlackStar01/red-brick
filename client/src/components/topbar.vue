@@ -41,7 +41,7 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span class="text" @click="openCart = true"> {{ subtotal.nbr_items }} {{ subtotal.word }} ~ {{ subtotal.amount }} € </span>
+                    <span class="text" @click="openCart = true"> {{ subtotal.nbr_items }} {{ subtotal.word.value }} ~ {{ subtotal.amount }} € </span>
                 </span>
             </router-link>
         </div>

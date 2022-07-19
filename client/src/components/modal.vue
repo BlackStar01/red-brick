@@ -40,10 +40,10 @@
                         :quantity="item_in_cart.number" :computedPrice="item_in_cart.number * item_in_cart.item.price">
                         {{ item_in_cart.item.title }}
                         <template v-slot:reduceQuantity>
-                            <button class="handleQuantity" @click="reduceQuantity"> - </button>
+                            <button class="handleQuantity" @click="reduceQuantity(item_in_cart)"> - </button>
                         </template>
                         <template v-slot:addQuantity>
-                            <button class="handleQuantity" @click="addQuantity"> + </button>
+                            <button class="handleQuantity" @click="addQuantity(item_in_cart)"> + </button>
                         </template>
                         <template v-slot:btnDelete>
                             <svg @click="deleteItem(item_in_cart)" class="trashIcon" width="24" height="24"
@@ -56,16 +56,18 @@
                             </svg>
                         </template>
                     </modalCard>
+                    <div class="total" v-if="store_cart.getItems.length !== 0">
+                        <h5> Total <span class="amount"> {{ total }}€ </span> </h5>
+                    </div>
                     <button class="pay" @click="goPayement" v-if="store_cart.getItems.length !== 0">
-                        <svg class="iconLock" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="iconLock" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M18 10.5C19.6569 10.5 21 11.8431 21 13.5V19.5C21 21.1569 19.6569 22.5 18 22.5H6C4.34315 22.5 3 21.1569 3 19.5V13.5C3 11.8431 4.34315 10.5 6 10.5V7.5C6 4.18629 8.68629 1.5 12 1.5C15.3137 1.5 18 4.18629 18 7.5V10.5ZM12 3.5C14.2091 3.5 16 5.29086 16 7.5V10.5H8V7.5C8 5.29086 9.79086 3.5 12 3.5ZM18 12.5H6C5.44772 12.5 5 12.9477 5 13.5V19.5C5 20.0523 5.44772 20.5 6 20.5H18C18.5523 20.5 19 20.0523 19 19.5V13.5C19 12.9477 18.5523 12.5 18 12.5Z"
                                 fill="currentColor" />
                         </svg>
                         Procéder au paiement
                     </button>
-                    <!-- <h2> {{ isOpen }} zrzc </h2> -->
-
                 </div>
             </div>
         </teleport>
@@ -73,22 +75,28 @@
 </template>
 
 <script setup>
-import { ref, inject } from 'vue';
+import { ref, inject, watchEffect } from 'vue';
 import modalCard from './modalCard.vue';
 import { useCart } from '@/store/cartStore.js'
 import { element_index_in_array } from '@/services/utils/utils'
 const store_cart = useCart()
 const isOpen = inject('modalCart')
 
+const total = ref(0)
+
 const deleteItem = (e) => {
     store_cart.delete_item(element_index_in_array(JSON.parse(JSON.stringify(store_cart)).getItems, e))
 }
-const reduceQuantity = () => {
-    
+const reduceQuantity = (e) => {
+    store_cart.decrease_number(element_index_in_array(JSON.parse(JSON.stringify(store_cart)).getItems, e))
 }
-const addQuantity = () => {
-
+const addQuantity = (e) => {
+    store_cart.increase_number(element_index_in_array(JSON.parse(JSON.stringify(store_cart)).getItems, e))
+    total.value = store_cart.total_amount()
 }
+watchEffect(() => {
+    total.value = store_cart.total_amount()
+})
 const goPayement = () => {
 
 }
@@ -191,11 +199,26 @@ hr {
     background-color: transparent;
     transition: all 100ms;
 }
+
 .handleQuantity:hover {
     cursor: pointer;
     border: 1px solid var(--secondary);
     background-color: var(--secondary);
     color: white;
+}
+.total {
+    float: inline-end;
+    padding: 25px 0px;
+}
+.amount {
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background-color: var(--fourth);
+    color: var(--secondary);
+    padding: 10px 20px;
+    margin: 0px 15px;
+    font-weight: bolder;
+    font-size: 1.3em;
 }
 .pay {
     border: 1px solid var(--secondary);
@@ -210,12 +233,14 @@ hr {
     padding: 12px 0px;
     transition: all 150ms;
 }
+
 .pay:hover {
     cursor: pointer;
     border: 1px solid var(--secondary);
     background-color: transparent;
     color: var(--secondary);
 }
+
 .pay .iconLock {
     margin: 0px 15px;
 }
