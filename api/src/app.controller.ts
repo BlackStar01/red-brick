@@ -7,11 +7,14 @@ import {
   Req,
   Res,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Response, Request } from 'express';
+import { AuthGuard } from '@nestjs/passport';
+
 
 @Controller('api')
 export class AppController {
@@ -77,6 +80,16 @@ export class AppController {
     } catch (error) {
       throw new UnauthorizedException();
     }
+  }
+
+  @Get()
+  @UseGuards(AuthGuard('google'))
+  async googleAuth(@Req() req) {}
+
+  @Get('auth/google/callback')
+  @UseGuards(AuthGuard('google'))
+  googleAuthRedirect(@Req() req) {
+    return this.appService.googleLogin(req);
   }
 
   @Post('logout')

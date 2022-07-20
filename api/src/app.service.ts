@@ -9,6 +9,16 @@ export class AppService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
+  googleLogin(req: { user: any }) {
+    if (!req.user) {
+      return 'No user found';
+    }
+    return {
+      message: 'User founded from google',
+      user: req.user,
+    };
+  }
+
   async create(data: any): Promise<User> {
     return this.userRepository.save(data);
   }

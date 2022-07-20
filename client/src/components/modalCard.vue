@@ -72,7 +72,9 @@ img {
 .right {
     display: flex;
 }
-
+.right p {
+    width: 120px;
+}
 .quantity span {
     margin: 0px 20px;
 }

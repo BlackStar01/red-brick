@@ -35,9 +35,8 @@ export const useCart = defineStore("cart_items", {
     total_amount() {
       let total = 0
       for (let i = 0; i < this.getItems.length; i++) {
-        total = total + this.getItems[i].item.price
-      }
-      console.log(total)
+        total = total + this.getItems[i].item.price*this.getItems[i].number
+      } 
       return total
     }
   },
