@@ -25,25 +25,59 @@
                         <formbutton :type="'submit'"> Login </formbutton>
                         <small :onclick="forgot"> Forgot my password ? </small>
                         <br><br>
+                        <GoogleLogin class="googleLogin" :callback="callback">
+                                <formbutton class="btnGoogleLogin" :type="'submit'">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6 12C6 15.3137 8.68629 18 12 18C14.6124 18 16.8349 16.3304 17.6586 14H12V10H21.8047V14H21.8C20.8734 18.5645 16.8379 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C15.445 2 18.4831 3.742 20.2815 6.39318L17.0039 8.68815C15.9296 7.06812 14.0895 6 12 6C8.68629 6 6 8.68629 6 12Z"
+                                                        fill="white" />
+                                        </svg>
+                                        <span>Login with Google</span>
+                                </formbutton>
+                        </GoogleLogin>
+
                         <small :onclick="go_register"> I don't have yet an account ! </small>
                 </form>
+                <button @click="yourLogoutFunction"> logout </button>
         </div>
 
 </template>
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import forminput from '@/components/Form/forminput.vue'
 import formbutton from '@/components/Form/formbtn.vue'
+import { googleOneTap, decodeCredential } from "vue3-google-login"
 import axios from 'axios';
 import { check_mail } from '../services/utils/utils';
+import { googleLogout } from "vue3-google-login"
 
 const action = ref('login')
 
 const route = useRoute();
 const router = useRouter()
 
-console.log(`${route.name}`);
+/* console.log(`${route.name}`); */
+
+onMounted(() => {
+        googleOneTap()
+                .then((response) => {
+                        // This promise is resolved when user selects an account from the the One Tap prompt
+                        console.log("Handle the response", response)
+                })
+                .catch((error) => {
+                        console.log("Handle the error", error)
+                })
+})
+
+const callback = (response) => {
+        const userData = decodeCredential(response.code)
+        console.log("Handle the response", userData)
+}
+
+const yourLogoutFunction = () => {
+        googleLogout()
+}
 
 const try_login = async () => {
         let inputs = window.document.getElementsByClassName('login_input');
@@ -55,14 +89,14 @@ const try_login = async () => {
                         "email": mail,
                         "password": password
                 })
-                .then((response) => {
-                        console.log(response)
-                        localStorage.setItem('current_user', response.data);
-                        /* router.push('/') */
-                })
-                .catch((error) => {
-                        console.log(error);
-                })
+                        .then((response) => {
+                                console.log(response)
+                                localStorage.setItem('current_user', response.data);
+                                /* router.push('/') */
+                        })
+                        .catch((error) => {
+                                console.log(error);
+                        })
         }
 }
 
@@ -106,6 +140,23 @@ const inputs = ref({
 .auth img {
         width: 60px;
         height: 60px;
+}
+
+.googleLogin {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+}
+.googleLogin span {
+        margin: 0px 15px;
+}
+.btnGoogleLogin {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
 }
 
 small {

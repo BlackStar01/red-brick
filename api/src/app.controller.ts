@@ -82,7 +82,7 @@ export class AppController {
     }
   }
 
-  @Get()
+  @Get('auth')
   @UseGuards(AuthGuard('google'))
   async googleAuth(@Req() req) {}
 

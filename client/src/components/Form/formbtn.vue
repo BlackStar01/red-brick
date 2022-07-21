@@ -23,5 +23,6 @@ button {
     width: 100%;
     color: white;
     background-color: var(--secondary);
+    cursor: pointer;
 }
 </style>
