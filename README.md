@@ -1,4 +1,5 @@
-# red-brick
+
+> # red-brick : E-COMMERCE AMAZING WEB SITE
 
 L'objectif de ce projet est de s'entrainer et découvrir NestJS, puis explorer toutes les nouvelles fontionnalités de vuejs version 3 comme la COMPOSITION API, suspens, teleport et de faire une utilisation du store pinia.
 
