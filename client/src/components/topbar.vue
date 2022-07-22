@@ -78,7 +78,6 @@ const openCart = ref(false)
 const cat = localStorage.getItem('myCat');
 provide('modalCart', openCart)
 
-
 </script>
     
 <style scoped>

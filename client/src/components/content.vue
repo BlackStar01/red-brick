@@ -14,7 +14,7 @@
             </div>
             <div class="products">
                 <card v-for="product in products" :key="product.id" :url="product.image" :alt="product.title"
-                    :title="product.title" :price="product.price" :category="product.category" @handle_like="handle_like"
+                    :title="hide_long_text(product.title)" :price="product.price" :category="product.category" @handle_like="handle_like"
                     @dis_like="remove_like" @item_clicked="add_item(product)">
                 </card>
             </div>
@@ -24,12 +24,12 @@
     
 <script setup>
 
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, provide } from 'vue';
 import search from './search.vue';
 import axios from "axios";
 import card from './card.vue';
 import range from './Filter/range.vue';
-import { check_max_price } from '../services/utils/utils';
+import { check_max_price, hide_long_text } from '../services/utils/utils';
 import { useCart } from '@/store/cartStore.js'
 
 const products = ref([])

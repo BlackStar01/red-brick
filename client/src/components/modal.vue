@@ -95,7 +95,7 @@ const addQuantity = (e) => {
     total.value = store_cart.total_amount()
 }
 watchEffect(() => {
-    total.value = store_cart.total_amount()
+    total.value = store_cart.total_amount().toFixed(2)
 })
 const goPayement = () => {
 

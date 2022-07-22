@@ -42,3 +42,12 @@ export const element_index_in_array = (array, element) => {
     const array_mapped = array.map(e => e.item.id)
     return array_mapped.indexOf(element.item.id)
 }
+
+export const hide_long_text = (text) => {
+    let final_word = ''
+    for (let i = 0; i < 18; i++) {
+        final_word += text[i]
+    }
+    final_word += '...'
+    return final_word
+}

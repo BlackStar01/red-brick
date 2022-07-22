@@ -9,7 +9,7 @@
                 </strong></p>
             <div class="quantity">
                 <slot name="reduceQuantity"></slot>
-                <span> {{ quantity }} </span>
+                <span> x {{ quantity }} </span>
                 <slot name="addQuantity"></slot>
             </div>
         </div>
