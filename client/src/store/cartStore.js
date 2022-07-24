@@ -4,6 +4,7 @@ export const useCart = defineStore("cart_items", {
   state: () => {
     return {
       items: [],
+      sortedCategories: []
     };
   },
   getters: {

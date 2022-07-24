@@ -1,5 +1,6 @@
 <template>
     <div class="range">
+        <h4> Price </h4>
         <div class="values">
             <span> <small> From : </small> {{ minvalue }} € </span>
             <span> <small> Up To : </small> {{ maxvalue }} € </span>
@@ -36,9 +37,11 @@ const handle_max = () => {
 .range {
     margin: 40px 0px;
     padding: 0px 20px;
-
 }
-
+.range h4 {
+    margin: 10px 0px;
+    font-weight: bold;
+}
 .values {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -63,28 +66,22 @@ small {
     display: flex;
     max-width: 100%;
 }
-
-
-input[type=range] {
-  -webkit-appearance: none;
-  margin: 10px 0;
-  width: 100%;
+.inputs input {
+    background-color:  transparent;
 }
+
 input[type=range]:focus {
   outline: none;
 }
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
-  height: 12.8px;
   cursor: pointer;
   box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-  background: green;
   border-radius: 25px;
   border: 0px solid #000101;
 }
 input[type=range]::-moz-range-track {
-  width: 100%;
-  height: 12.8px;
+  width: 90%;
   cursor: pointer;
   animate: 0.2s;
   box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
@@ -97,7 +94,7 @@ input[type=range]::-moz-range-thumb {
   height: 8px;
   width: 8px;
   border-radius: 7px;
-  background: white;
+  background: var(--secondary);
   cursor: pointer;
 }
 

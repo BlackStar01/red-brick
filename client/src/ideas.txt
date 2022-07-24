@@ -10,3 +10,5 @@ Problem of found the user of token created
 /* There is a bug with the max price */
  v-if le panier est vide, alors , pas de bouton valider la commande                                             Done
 Envoyer une notification en haut quand on supprime un article 
+
+

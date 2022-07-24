@@ -19,6 +19,7 @@ export class User {
 
   @Column({ default: null })
   address: string;
+  /* City, street, number of street, Postal code, more informations */
 
   @Column({ default: null })
   password: string;
