@@ -1,6 +1,7 @@
 <template>
+    <titleFilter> PRICE </titleFilter>
+
     <div class="range">
-        <h4> Price </h4>
         <div class="values">
             <span> <small> From : </small> {{ minvalue }} € </span>
             <span> <small> Up To : </small> {{ maxvalue }} € </span>
@@ -15,6 +16,7 @@
     
 <script setup lang='ts'>
 import { ref } from 'vue';
+import titleFilter from './titleFilter.vue';
 
 defineProps({
     max: {
@@ -35,13 +37,9 @@ const handle_max = () => {
 
 <style scoped>
 .range {
-    margin: 40px 0px;
     padding: 0px 20px;
 }
-.range h4 {
-    margin: 10px 0px;
-    font-weight: bold;
-}
+
 .values {
     display: grid;
     grid-template-columns: 1fr 1fr;

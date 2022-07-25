@@ -77,7 +77,7 @@
 <script setup>
 import { ref, inject, watchEffect } from 'vue';
 import modalCard from './modalCard.vue';
-import { useCart } from '@/store/cartStore.js'
+import { useCart } from '@/store/cart.store.js'
 import { element_index_in_array } from '@/services/utils/utils'
 const store_cart = useCart()
 const isOpen = inject('modalCart')

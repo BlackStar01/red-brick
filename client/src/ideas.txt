@@ -11,4 +11,4 @@ Problem of found the user of token created
  v-if le panier est vide, alors , pas de bouton valider la commande                                             Done
 Envoyer une notification en haut quand on supprime un article 
 
-
+Click on checkbox and not on the element ... props the veent click or provide it .. i don't know

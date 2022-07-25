@@ -5,7 +5,8 @@
             <!-- <p>
                 {{ store_cart.items }}
             </p> -->
-            <themes :categories="categories" @active_model="select_theme"></themes>
+            <titleFilter> CATEGORIES </titleFilter>
+            <themes  v-for="categorie in categories" :key="categorie" @click="sort_by_category(categorie)"> {{categorie}} </themes>
         </div>
         <main>
             <h1> CATALOG </h1>
@@ -30,17 +31,20 @@ import axios from "axios";
 import card from './card.vue';
 import range from './Filter/range.vue';
 import { check_max_price, hide_long_text } from '../services/utils/utils';
-import { useCart } from '@/store/cartStore.js'
+import { useCart } from '@/store/cart.store.js'
+import { useSort } from '@/store/sorted.store.js'
 import themes from './Filter/themes.vue'
+import titleFilter from './Filter/titleFilter.vue';
 
 const products = ref([])
 const nbr_favorites = ref(0)
 const max_price = ref(0)
 const store_cart = useCart()
+const store_categories = useSort()
 const categories = ref(null)
 
-const select_theme = (e) => {
-    console.log(e)
+const sort_by_category = (e) => {
+    store_categories.add_or_remove(e)
 }
 
 const handle_like = () => {
