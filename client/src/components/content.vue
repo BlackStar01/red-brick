@@ -1,12 +1,14 @@
 <template>
     <div class="main">
         <div class="filter">
+
             <range :max="max_price"></range>
             <!-- <p>
                 {{ store_cart.items }}
             </p> -->
             <titleFilter> CATEGORIES </titleFilter>
-            <themes  v-for="categorie in categories" :key="categorie" @click="sort_by_category(categorie)"> {{categorie}} </themes>
+            <categoriesList v-for="categorie in categories" :key="categorie" @click="sort_by_category(categorie)">
+                {{ categorie }} </categoriesList>
         </div>
         <main>
             <h1> CATALOG </h1>
@@ -25,15 +27,15 @@
     
 <script setup>
 
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, onBeforeMount } from 'vue';
 import search from './search.vue';
 import axios from "axios";
 import card from './card.vue';
 import range from './Filter/range.vue';
 import { check_max_price, hide_long_text } from '../services/utils/utils';
 import { useCart } from '@/store/cart.store.js'
-import { useSort } from '@/store/sorted.store.js'
-import themes from './Filter/themes.vue'
+import { useSort } from '@/store/sort.store.js'
+import categoriesList from './Filter/categories.vue'
 import titleFilter from './Filter/titleFilter.vue';
 
 const products = ref([])
@@ -41,10 +43,10 @@ const nbr_favorites = ref(0)
 const max_price = ref(0)
 const store_cart = useCart()
 const store_categories = useSort()
-const categories = ref(null)
+const categories = ref([])
 
 const sort_by_category = (e) => {
-    store_categories.add_or_remove(e)
+    store_categories.add_or_remove_selected(e)
 }
 
 const handle_like = () => {
@@ -73,11 +75,18 @@ onMounted(async () => {
             products.value = response.data
             max_price.value = check_max_price(products._rawValue)
         });
-    await axios
-        .get('https://fakestoreapi.com/products/categories')
-        .then(response => {
-            categories.value = response.data
-        })
+    if (store_categories.getAllCategories.length === 0) {
+        await axios
+            .get('https://fakestoreapi.com/products/categories')
+            .then(response => {
+                store_categories.add_all_categories(JSON.parse(JSON.stringify(response.data)))
+                categories.value = store_categories.getAllCategories
+            })
+    }
+    else {
+        categories.value = store_categories.getAllCategories
+    }
+
 })
 
 </script>

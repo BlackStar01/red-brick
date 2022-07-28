@@ -5,11 +5,13 @@
                                 <p>register</p>
                         </div>
                 </div>
-                <div v-if="action === 'forgot_password'">
+                <form v-if="action === 'forgot_password'">
                         <div>
-                                <p>forgot</p>
+                                <forminput class="login_input" :svg_value="inputs.login.email.svg"
+                                        :placeholder="inputs.login.email.placeholder" :type="inputs.login.email.type">
+                                </forminput>
                         </div>
-                </div>
+                </form>
                 <!-- This is the login  -->
                 <form v-if="action === 'login'" :onsubmit="try_login">
                         <div class="top">
@@ -22,8 +24,8 @@
                         <forminput class="login_input" :svg_value="inputs.login.password.svg"
                                 :placeholder="inputs.login.password.placeholder" :type="inputs.login.password.type">
                         </forminput>
+                        <small :onclick="forgot"> Forgot my password ? </small><br><br>
                         <formbutton :type="'submit'"> Login </formbutton>
-                        <small :onclick="forgot"> Forgot my password ? </small>
                         <br><br>
                         <GoogleLogin class="googleLogin" :callback="callback">
                                 <formbutton class="btnGoogleLogin" :type="'submit'">
@@ -101,7 +103,7 @@ const try_login = async () => {
 }
 
 const forgot = () => {
-        console.log('forgot')
+
         action.value = 'forgot_password'
 }
 
@@ -149,9 +151,11 @@ const inputs = ref({
         align-items: center;
         justify-content: center;
 }
+
 .googleLogin span {
         margin: 0px 15px;
 }
+
 .btnGoogleLogin {
         display: flex;
         flex-direction: row;

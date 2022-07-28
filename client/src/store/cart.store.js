@@ -7,9 +7,12 @@ export const useCart = defineStore("cart_items", {
     };
   },
   getters: {
-    getItems(state) {
+    getItems : (state) => {
       return JSON.parse(JSON.stringify(state.items))
     },
+    nbr_items : (state) => {
+      return state.items.length
+    }
   },
   actions: {
     add_item(new_item) {

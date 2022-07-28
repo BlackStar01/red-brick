@@ -65,6 +65,7 @@ small {
     max-width: 100%;
 }
 .inputs input {
+    width: 50%;
     background-color:  transparent;
 }
 

@@ -6,7 +6,12 @@
 </template>
 
 <script setup>
-
+/* defineProps({
+    check: {
+        type: Function,
+        required: true
+    }
+}) */
 </script>
 
 <style scoped>

@@ -41,7 +41,7 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span class="text" @click="openCart = true"> {{ subtotal.nbr_items }} {{ subtotal.word.value }} ~ {{ subtotal.amount }} € </span>
+                    <span class="text" @click="openCart = true"> {{ store_cart.nbr_items }} {{ check_plural(store_cart.nbr_items, 'Item') }} ~ {{ store_cart.total_amount() }} € </span>
                 </span>
             </router-link>
         </div>
@@ -53,6 +53,8 @@
 /* import axios from 'axios'; */
 import { inject, ref, provide } from 'vue';
 import modal from './modal.vue';
+import { useCart } from '@/store/cart.store.js'
+import { check_plural } from '@/services/utils/utils'
 
 /* const get_current_user = async () => {
     await axios.get('http://localhost:8000/api/user')
@@ -67,12 +69,14 @@ import modal from './modal.vue';
 onMounted(() => {
   get_current_user();
 }) */
+
+const store_cart = useCart()
+
 const open = () => {
     return true
 }
 const nbr_likes = inject('nbr_likes')
 const mot = inject('mot')
-const subtotal = inject('cart_updated')
 const openCart = ref(false)
 
 const cat = localStorage.getItem('myCat');
