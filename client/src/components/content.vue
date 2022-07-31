@@ -13,10 +13,10 @@
         <main>
             <h1> CATALOG </h1>
             <div class="searcharea">
-                <search></search>
+                <search @searched_word="handle_search"></search>
             </div>
             <div class="products">
-                <card v-for="product in products" :key="product.id" :url="product.image" :alt="product.title"
+                <card v-for="product in filtered_products" :key="product.id" :url="product.image" :alt="product.title"
                     :title="hide_long_text(product.title)" :price="product.price" :category="product.category"
                     @handle_like="handle_like" @dis_like="remove_like" @item_clicked="add_item(product)">
                 </card>
@@ -27,7 +27,7 @@
     
 <script setup>
 
-import { onMounted, ref, onBeforeMount } from 'vue';
+import { onMounted, ref } from 'vue';
 import search from './search.vue';
 import axios from "axios";
 import card from './card.vue';
@@ -39,6 +39,8 @@ import categoriesList from './Filter/categories.vue'
 import titleFilter from './Filter/titleFilter.vue';
 
 const products = ref([])
+const pro = ref([])
+const filtered_products = ref(products)
 const nbr_favorites = ref(0)
 const max_price = ref(0)
 const store_cart = useCart()
@@ -59,6 +61,24 @@ const remove_like = () => {
     send_to_home('send_like', nbr_favorites.value)
 }
 
+const handle_search = (e) => {
+    /* console.log(e) */
+    if (e.value !== '') {         
+        filtered_products.value = JSON.parse(JSON.stringify(products.value)).filter(el => {
+            const val = e.value.toLowerCase();
+            const title = el.title && el.title.toLowerCase();
+            if (val && title.indexOf(val) !== -1) {
+                return true
+            }
+            return false
+        })
+        console.log(JSON.parse(JSON.stringify(filtered_products.value)))
+    }
+    else {
+        filtered_products.value = pro.value
+    }
+}
+
 const add_item = (e) => {
     /* JSON.parse(JSON.stringify(e)) to get de target in a proxy */
     send_to_home('send_item', JSON.parse(JSON.stringify(e)))
@@ -73,6 +93,7 @@ onMounted(async () => {
         .get('https://fakestoreapi.com/products?limit=30')
         .then(response => {
             products.value = response.data
+            pro.value = products.value
             max_price.value = check_max_price(products._rawValue)
         });
     if (store_categories.getAllCategories.length === 0) {

@@ -8,13 +8,20 @@
             </svg>
         </div>
         <div class="input">
-            <input type="search" name="" placeholder="Search a item">
+            <input type="search" @keyup="typing" v-model="searched" placeholder="Search a item">
         </div>
     </div>
 </template>
     
 <script setup>
+import { ref } from 'vue';
 
+const searched = ref('')
+const typing = () => {
+    send_text_typed('searched_word', searched)
+}
+
+const send_text_typed = defineEmits('searched_word')
 </script>
     
 <style scoped>
