@@ -24,6 +24,8 @@ Créer une base de données redbrick.
 `npm run dev` pour rouler le serveur ... 
 `NODEJS >= 16 is required for backend`
 
+But ... there is may be an error with BCRYPT so you can just run the frontend ... or try to fix it by checking on stackoverflow
+
 # CLIENT
 
 `npm i` 
