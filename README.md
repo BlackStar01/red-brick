@@ -13,6 +13,11 @@ Il s'agit d'un site e-commerce dont la maquette a été prise sur DRIBBLE :) :) 
 
 `Nestjs + Nodejs`
 
+# Backend
+
+`http://svgicons.sparkk.fr/` for svg paths
+`css.gg` for icons
+
 # Comment faire rouler le programme
 
 # API 
