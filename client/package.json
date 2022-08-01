@@ -17,6 +17,7 @@
     "pinia": "^2.0.14",
     "vue": "^3.2.25",
     "vue-router": "^4.0.15",
+    "vue-tel-input": "^5.11.0",
     "vue3-google-login": "^2.0.11"
   },
   "devDependencies": {

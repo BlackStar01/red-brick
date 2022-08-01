@@ -25,7 +25,6 @@ export const useSort = defineStore("sorted_items", {
       else {
         this.selected_categories.push(category);
       }
-      console.log(JSON.parse(JSON.stringify(this.selected_categories)))
     },
   },
 });

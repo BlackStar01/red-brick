@@ -3,7 +3,7 @@
         <teleport to="body">
             <!-- v-if="isOpen.visible" -->
             <div class="modal" v-if="isOpen">
-
+                
                 <div>
                     <div class="topmodal">
                         <button @click="isOpen = false">

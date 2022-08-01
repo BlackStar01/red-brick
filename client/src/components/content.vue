@@ -1,11 +1,7 @@
 <template>
     <div class="main">
         <div class="filter">
-
             <range :max="max_price"></range>
-            <!-- <p>
-                {{ store_cart.items }}
-            </p> -->
             <titleFilter> CATEGORIES </titleFilter>
             <categoriesList v-for="categorie in categories" :key="categorie" @click="sort_by_category(categorie)">
                 {{ categorie }} </categoriesList>
@@ -39,7 +35,7 @@ import categoriesList from './Filter/categories.vue'
 import titleFilter from './Filter/titleFilter.vue';
 
 const products = ref([])
-const pro = ref([])
+const initial_products = ref([])
 const filtered_products = ref(products)
 const nbr_favorites = ref(0)
 const max_price = ref(0)
@@ -49,6 +45,19 @@ const categories = ref([])
 
 const sort_by_category = (e) => {
     store_categories.add_or_remove_selected(e)
+    if (JSON.parse(JSON.stringify(store_categories.selected_categories)).length !== 0) {         
+        filtered_products.value = JSON.parse(JSON.stringify(products.value)).filter(el => {
+            const val = e.toLowerCase();
+            const title = el.category && el.category.toLowerCase();
+            if (val && title.indexOf(val) !== -1) {
+                return true
+            }
+            return false
+        })
+    }
+    else {
+        filtered_products.value = initial_products.value
+    }
 }
 
 const handle_like = () => {
@@ -72,10 +81,10 @@ const handle_search = (e) => {
             }
             return false
         })
-        console.log(JSON.parse(JSON.stringify(filtered_products.value)))
+        /* console.log(JSON.parse(JSON.stringify(filtered_products.value))) */
     }
     else {
-        filtered_products.value = pro.value
+        filtered_products.value = initial_products.value
     }
 }
 
@@ -93,7 +102,7 @@ onMounted(async () => {
         .get('https://fakestoreapi.com/products?limit=30')
         .then(response => {
             products.value = response.data
-            pro.value = products.value
+            initial_products.value = products.value
             max_price.value = check_max_price(products._rawValue)
         });
     if (store_categories.getAllCategories.length === 0) {

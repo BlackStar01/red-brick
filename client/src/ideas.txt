@@ -12,3 +12,7 @@ Problem of found the user of token created
 Envoyer une notification en haut quand on supprime un article 
 
 Click on checkbox and not on the element ... props the veent click or provide it .. i don't know
+Fix vue tel input
+
+Creer une fonction qui génère l'adresse
+faire un event v-model dans forminput...l'utiliser pour get le code postale entré et repérer la ville

@@ -2,6 +2,8 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import { createRouter, createWebHashHistory } from "vue-router";
 import i18n from "./services/language/i18n";
+import VueTelInput from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
 import { createPinia } from "pinia";
 import vue3GoogleLogin from 'vue3-google-login'
 import Home from "@/views/home.vue";
@@ -43,6 +45,7 @@ i18n(app)
   })
   .use(router)
   .use(pinia)
+  .use(VueTelInput)
   .mount("#app");
 
 export default router;
