@@ -1,7 +1,7 @@
 <template>
         <div class="auth">
                 <div v-if="action === 'register'" class="register">
-                <div class="top">
+                        <div class="top">
                                 <img src="@/assets/logo.png" alt="logo" />
                                 <h3> RED REGISTER </h3>
                         </div>
@@ -20,6 +20,7 @@
                                 :placeholder="inputs.register.telephone.placeholder"
                                 :type="inputs.register.telephone.type">
                         </forminput>
+                        <!-- <vue-tel-input v-model="phone"></vue-tel-input> -->
                         <forminput class="register_input" :svg_value="inputs.register.addresse.svg"
                                 :placeholder="inputs.register.addresse.placeholder"
                                 :type="inputs.register.addresse.type">
@@ -69,7 +70,6 @@
                                         <span>Login with Google</span>
                                 </formbutton>
                         </GoogleLogin>
-
                         <small :onclick="go_register"> I don't have yet an account ! </small>
                 </form>
                 <button v-if="action === 'login'" @click="yourLogoutFunction"> logout </button>
@@ -87,6 +87,7 @@ import { check_mail } from '../services/utils/utils';
 import { googleLogout } from "vue3-google-login"
 
 const action = ref('login')
+const phone = ref('')
 
 const route = useRoute();
 const router = useRouter()
@@ -135,7 +136,6 @@ const try_login = async () => {
 }
 
 const forgot = () => {
-
         action.value = 'forgot_password'
 }
 

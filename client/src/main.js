@@ -1,40 +1,19 @@
 import { createApp } from "vue";
-import App from "./App.vue";
 import { createRouter, createWebHashHistory } from "vue-router";
+import { routes } from './routes'
+import { createPinia } from "pinia";
+
+import App from "./App.vue";
 import i18n from "./services/language/i18n";
 import VueTelInput from 'vue-tel-input';
 import 'vue-tel-input/dist/vue-tel-input.css';
-import { createPinia } from "pinia";
 import vue3GoogleLogin from 'vue3-google-login'
-import Home from "@/views/home.vue";
 
-
-const routes = [
-  {
-    path: "/",
-    component: Home,
-    meta: { requiresAuth: false },
-  },
-  {
-    path: "/auth",
-    name: "auth",
-    component: () => import("@/views/auth.vue"),
-  },
-  {
-    path: "/dashboard",
-    name: "dashboard",
-    component: () => import("@/views/dashboard.vue"),
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    name: "NotFound",
-    component: () => import("@/views/NotFound.vue"),
-  },
-];
-
+console.log(routes)
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+  linkActiveClass: 'active'
 });
 
 const pinia = createPinia();
