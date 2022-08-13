@@ -32,8 +32,7 @@ export class AppController {
     @Body('password') password: string,
   ) {
     const salt = await bcrypt.genSalt();
-    console.log(salt);
-    const hashPassword = await bcrypt.hash(password, 12);
+    const hashPassword = await bcrypt.hash(password, salt);
 
     const user = await this.appService.create({
       firstName,
@@ -45,7 +44,6 @@ export class AppController {
     });
 
     delete user.password;
-
     return user;
   }
 
@@ -66,7 +64,9 @@ export class AppController {
     const jwt = await this.jwtService.signAsync({ id: user.id });
     response.cookie('jwt', jwt, { httpOnly: true });
 
-    return jwt;
+    return {
+      message: 'Sucess login',
+    };
   }
 
   @Get('user')
@@ -74,21 +74,14 @@ export class AppController {
     try {
       const cookie = request.cookies['jwt'];
       const data = await this.jwtService.verifyAsync(cookie);
+      if (!data) {
+        throw new UnauthorizedException();
+      }
       const user = await this.appService.findOne({ id: data['id'] });
-      return user.firstName + ' ' + user.lastName;
+      return user;
     } catch (error) {
       throw new UnauthorizedException();
     }
-  }
-
-  @Get('auth')
-  @UseGuards(AuthGuard('google'))
-  async googleAuth(@Req() req) {}
-
-  @Get('auth/google/callback')
-  @UseGuards(AuthGuard('google'))
-  googleAuthRedirect(@Req() req) {
-    return this.appService.googleLogin(req);
   }
 
   @Post('logout')

@@ -51,6 +51,9 @@
                                 <img src="@/assets/logo.png" alt="logo" />
                                 <h3> RED LOGIN </h3>
                         </div>
+                        <formfeedback
+                                :svg_value="'M10.2426 16.3137L6 12.071L7.41421 10.6568L10.2426 13.4853L15.8995 7.8284L17.3137 9.24262L10.2426 16.3137Z'"
+                                :bg="notif_colors.bgerror" :color="notif_colors.error"> ERREUR </formfeedback>
                         <forminput class="login_input" :svg_value="inputs.login.email.svg"
                                 :placeholder="inputs.login.email.placeholder" :type="inputs.login.email.type">
                         </forminput>
@@ -64,7 +67,7 @@
                                 <formbutton class="btnGoogleLogin" :type="'submit'">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M6 12C6 15.3137 8.68629 18 12 18C14.6124 18 16.8349 16.3304 17.6586 14H12V10H21.8047V14H21.8C20.8734 18.5645 16.8379 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C15.445 2 18.4831 3.742 20.2815 6.39318L17.0039 8.68815C15.9296 7.06812 14.0895 6 12 6C8.68629 6 6 8.68629 6 12Z"
+                                                <path d="M10.2426 16.3137L6 12.071L7.41421 10.6568L10.2426 13.4853L15.8995 7.8284L17.3137 9.242"
                                                         fill="white" />
                                         </svg>
                                         <span>Login with Google</span>
@@ -82,6 +85,7 @@ import { useRoute, useRouter } from 'vue-router';
 import forminput from '@/components/Form/forminput.vue'
 import formbutton from '@/components/Form/formbtn.vue'
 import { googleOneTap, decodeCredential } from "vue3-google-login"
+import formfeedback from '../components/Form/formfeedback.vue';
 import axios from 'axios';
 import { check_mail } from '../services/utils/utils';
 import { googleLogout } from "vue3-google-login"
@@ -93,6 +97,13 @@ const route = useRoute();
 const router = useRouter()
 
 /* console.log(`${route.name}`); */
+
+const notif_colors = ref({
+        sucess: '#004b23',
+        bgsucess: '#4FCE66',
+        error: '#dd0426',
+        bgerror: '#ff7477'
+})
 
 onMounted(() => {
         googleOneTap()
@@ -116,22 +127,15 @@ const yourLogoutFunction = () => {
 
 const try_login = async () => {
         let inputs = window.document.getElementsByClassName('login_input');
-        const mail = inputs[0].childNodes[1].value
-        const password = inputs[1].childNodes[1].value
-
-        if (check_mail(mail)) {
-                await axios.post('http://localhost:8000/api/login', {
-                        "email": mail,
-                        "password": password
+        const data_login = { email: inputs[0].childNodes[1].value, password: inputs[1].childNodes[1].value }
+        if (check_mail(data_login.email)) {
+                const response = await fetch('http://localhost:3005/api/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data_login)
                 })
-                        .then((response) => {
-                                console.log(response)
-                                localStorage.setItem('current_user', response.data);
-                                /* router.push('/') */
-                        })
-                        .catch((error) => {
-                                console.log(error);
-                        })
+                console.log(await response.json())
+                return await response.json()
         }
 }
 

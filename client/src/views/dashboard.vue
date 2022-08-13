@@ -12,7 +12,9 @@
             <router-link to="/dashboard/Logout"> Logout </router-link>
         </section>
         <section class="right">
-            <router-view></router-view>
+            <div class="right-content">
+                <router-view></router-view>
+            </div>
         </section>
     </div>
 </template>
@@ -36,7 +38,9 @@
 .left {
     position: fixed;
     width: 20%;
+    min-height: 100vh;
     border-right: 1px solid #ccc;
+    box-shadow: 1px 3px 5px #ccc;
     height: calc(100vh - 140px);
     overflow-x: hidden;
     text-align: center;
@@ -51,5 +55,10 @@
     position: absolute;
     margin-left: 20%;
     width: 80%;
+}
+.right-content {
+    width: 80%;
+    margin: auto;
+    padding: 40px 0px;
 }
 </style>
