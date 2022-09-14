@@ -38,13 +38,32 @@
                         <path
                             d="M16 15C16 14.4477 15.5523 14 15 14H9C8.44772 14 8 14.4477 8 15V21H6V15C6 13.3431 7.34315 12 9 12H15C16.6569 12 18 13.3431 18 15V21H16V15Z"
                             fill="currentColor" />
-                    </svg> Vital Warren </span>
+                    </svg> {{getCurrentUser()}} </span>
             </router-link>
 
         </div>
     </div>
 </template>
+<script setup>
 
+
+const getCurrentUser = async () => {
+
+    const response = await fetch('http://localhost:3005/api/user', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        cookie: 'jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjYzMTU5MjkxLCJleHAiOjE2NjMyNDU2OTF9.NdvORxlq7z2HLXePYqCDluugQN-pO8pKEYOJtZ8iGQY; '
+
+    })
+    const res = await response.json()
+    console.log(res)
+    return res
+
+}
+
+</script>
 <style scoped>
 .nav {
     z-index: 1;
@@ -101,6 +120,7 @@ select {
     border: none;
     background: none;
 }
+
 .flex svg {
     transform: translateY(20%);
 }

@@ -17,6 +17,9 @@ import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api')
 export class AppController {
+  getHello(): any {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     private readonly appService: AppService,
     private jwtService: JwtService,
@@ -66,12 +69,14 @@ export class AppController {
 
     return {
       message: 'Sucess login',
+      token: jwt,
     };
   }
 
   @Get('user')
   async getCurrentUser(@Req() request: Request) {
     try {
+      console.log(request);
       const cookie = request.cookies['jwt'];
       const data = await this.jwtService.verifyAsync(cookie);
       if (!data) {

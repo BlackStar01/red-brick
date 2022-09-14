@@ -45,15 +45,17 @@
                 <form v-if="action === 'forgot_password'">
                         <p>forgot</p>
                 </form>
+                <loader v-if="loading"></loader>
                 <!-- This is the login  -->
                 <form v-if="action === 'login'" :onsubmit="try_login" class="login">
                         <div class="top">
                                 <img src="@/assets/logo.png" alt="logo" />
                                 <h3> RED LOGIN </h3>
                         </div>
-                        <formfeedback
+                        <formfeedback v-if="message !== ''"
                                 :svg_value="'M10.2426 16.3137L6 12.071L7.41421 10.6568L10.2426 13.4853L15.8995 7.8284L17.3137 9.24262L10.2426 16.3137Z'"
-                                :bg="notif_colors.bgerror" :color="notif_colors.error"> ERREUR </formfeedback>
+                                :bg="bgnotif" :color="notif"> {{ message }}
+                        </formfeedback>
                         <forminput class="login_input" :svg_value="inputs.login.email.svg"
                                 :placeholder="inputs.login.email.placeholder" :type="inputs.login.email.type">
                         </forminput>
@@ -76,6 +78,7 @@
                         <small :onclick="go_register"> I don't have yet an account ! </small>
                 </form>
                 <button v-if="action === 'login'" @click="yourLogoutFunction"> logout </button>
+                <span v-if="action === ''"></span>
         </div>
 
 </template>
@@ -84,9 +87,9 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import forminput from '@/components/Form/forminput.vue'
 import formbutton from '@/components/Form/formbtn.vue'
+import formfeedback from '@/components/Form/formfeedback.vue';
+import loader from '@/components/loader.vue'
 import { googleOneTap, decodeCredential } from "vue3-google-login"
-import formfeedback from '../components/Form/formfeedback.vue';
-import axios from 'axios';
 import { check_mail } from '../services/utils/utils';
 import { googleLogout } from "vue3-google-login"
 
@@ -98,12 +101,10 @@ const router = useRouter()
 
 /* console.log(`${route.name}`); */
 
-const notif_colors = ref({
-        sucess: '#004b23',
-        bgsucess: '#4FCE66',
-        error: '#dd0426',
-        bgerror: '#ff7477'
-})
+const notif = ref('')
+const bgnotif = ref('')
+const message = ref('')
+const loading = ref(false)
 
 onMounted(() => {
         googleOneTap()
@@ -134,8 +135,24 @@ const try_login = async () => {
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data_login)
                 })
-                console.log(await response.json())
-                return await response.json()
+                const is_user = response.status === 201 ? true : false
+                if (is_user) {
+                        const res = await response.json()
+                        message.value = res.message
+                        notif.value = '#004b23',
+                        bgnotif.value = '#4FCE66'
+                        window.localStorage.setItem('token', res.token);
+                        loading.value = true
+                        action.value = ''
+                        setTimeout(() => {
+                               router.push('/') 
+                        }, 2000);
+                }
+                else {
+                        message.value = "Failed"
+                        notif.value = '#dd0426'
+                        bgnotif.value = '#ff9696'
+                }
         }
 }
 

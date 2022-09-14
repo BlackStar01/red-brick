@@ -5,13 +5,13 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 20, default: null })
+  @Column({ length: 30, default: null })
   firstName: string;
 
-  @Column({ length: 20, default: null })
+  @Column({ length: 30, default: null })
   lastName: string;
 
-  @Column({ unique: true, length: 50, default: null })
+  @Column({ unique: true, length: 128, default: null })
   email: string;
 
   @Column({ unique: true, default: null })
@@ -21,7 +21,7 @@ export class User {
   address: string;
   /* City, street, number of street, Postal code, more informations */
 
-  @Column({ default: null })
+  @Column({ default: null, length: 128 })
   password: string;
 
   @Column({ default: false })
