@@ -1,7 +1,7 @@
 <template>
     <div class="notfound">
         <div>
-            <h3> 4 0 4 </h3>
+            <h3> 4. 0. 4 </h3>
             <p> Something wrong while loading this page </p>
             <small> Vous alllez être redirigés dans 0{{ compt }} {{ expression }} </small>
         </div>

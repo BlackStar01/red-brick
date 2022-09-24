@@ -154,8 +154,8 @@ const goPayement = () => {
     position: absolute;
     top: 30px;
     right: 30px;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border: 1px solid var(--secondary);
     border-radius: 50%;
     background-color: transparent;

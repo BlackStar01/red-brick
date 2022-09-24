@@ -9,7 +9,7 @@
             </span>
         </div>
         <div class="navelements">
-            <router-link to="/">
+            <router-link to="/comparaison">
                 <span>
                     <span class="icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,6 +17,7 @@
                             <path d="M8 17V15.5H14V13.5H8V12L5 14.5L8 17Z" fill="white" />
                         </svg>
                     </span>
+
                     <span class="text"> Compare products </span>
                 </span>
             </router-link>
@@ -41,7 +42,8 @@
                                 fill="white" />
                         </svg>
                     </span>
-                    <span class="text" @click="openCart = true"> {{ store_cart.nbr_items }} {{ check_plural(store_cart.nbr_items, 'Item') }} ~ {{ store_cart.total_amount() }} € </span>
+                    <span class="text" @click="openCart = true"> {{ store_cart.nbr_items }} {{
+                    check_plural(store_cart.nbr_items, 'Item') }} ~ {{ store_cart.total_amount() }} € </span>
                 </span>
             </router-link>
         </div>
@@ -85,9 +87,10 @@ provide('modalCart', openCart)
 </script>
     
 <style scoped>
-.modal {
+/* .modal {
     background-color: rebeccapurple;
-}
+} */
+
 .nav {
     z-index: 1;
     margin-top: 80px;

@@ -20,7 +20,7 @@
         </main>
     </div>
 </template>
-    
+
 <script setup>
 
 import { onMounted, ref } from 'vue';
@@ -45,7 +45,7 @@ const categories = ref([])
 
 const sort_by_category = (e) => {
     store_categories.add_or_remove_selected(e)
-    if (JSON.parse(JSON.stringify(store_categories.selected_categories)).length !== 0) {         
+    if (JSON.parse(JSON.stringify(store_categories.selected_categories)).length !== 0) {
         filtered_products.value = JSON.parse(JSON.stringify(products.value)).filter(el => {
             const val = e.toLowerCase();
             const title = el.category && el.category.toLowerCase();
@@ -72,7 +72,7 @@ const remove_like = () => {
 
 const handle_search = (e) => {
     /* console.log(e) */
-    if (e.value !== '') {         
+    if (e.value !== '') {
         filtered_products.value = JSON.parse(JSON.stringify(products.value)).filter(el => {
             const val = e.value.toLowerCase();
             const title = el.title && el.title.toLowerCase();
@@ -157,5 +157,21 @@ main h1 {
     padding: 30px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+@media screen and (max-width: 1500px) {
+    .products {
+        padding: 30px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .products {
+        padding: 30px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
 }
 </style>

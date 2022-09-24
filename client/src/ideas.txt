@@ -16,3 +16,11 @@ Fix vue tel input
 
 Creer une fonction qui génère l'adresse
 faire un event v-model dans forminput...l'utiliser pour get le code postale entré et repérer la ville
+
+
+NOW ... 
+
+Faire le systeme de comparaison 
+Un produit dans le system de comparaison n'a plus l'icone de comparaison 
+Comparaison entre deux produits maximum 
+Le systeme doit montrer clairement les et les moins 

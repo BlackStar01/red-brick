@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
   <!-- <img src="@/assets/design.jpg" alt=""> -->
 
