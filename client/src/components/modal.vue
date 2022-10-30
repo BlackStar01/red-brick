@@ -60,11 +60,8 @@
                         <h5> Total <span class="amount"> {{ total }}€ </span> </h5>
                     </div>
                     <div class="promo" v-if="store_cart.getItems.length !== 0">
-                        <span><input type="checkbox" v-model="have_promo" @click="display_input_promo(have_promo)"> J'ai un code
-                            promo </span><br>
-                        <form action="" method="post" @submit="check_promo" v-if="have_promo">
-                            <input type="text" placeholder="Code promo">
-                        </form>
+                        <span><input type="checkbox" v-model="have_promo"> I have a promo code </span><br>
+                        <input type="text" v-if="have_promo" placeholder="Code promo" v-model="promo_value" @input="check_promo_code">
                     </div>
 
                     <button class="pay" @click="goPayement" v-if="store_cart.getItems.length !== 0">
@@ -83,15 +80,16 @@
 </template>
 
 <script setup>
-import { ref, inject, watchEffect } from 'vue';
+import { ref, inject, watchEffect, watch } from 'vue';
 import modalCard from './modalCard.vue';
 import { useCart } from '@/store/cart.store.js'
 import { element_index_in_array } from '@/services/utils/utils'
 
 const store_cart = useCart()
 const isOpen = inject('modalCart')
-
+const have_promo = ref(false)
 const total = ref(0)
+const promo_value = ref("")
 
 const deleteItem = (e) => {
     store_cart.delete_item(element_index_in_array(JSON.parse(JSON.stringify(store_cart)).getItems, e))
@@ -103,9 +101,10 @@ const addQuantity = (e) => {
     store_cart.increase_number(element_index_in_array(JSON.parse(JSON.stringify(store_cart)).getItems, e))
     total.value = store_cart.total_amount()
 }
-const have_promo = ref(false)
-const display_input_promo = (e) => {
-    console.log(e)
+const check_promo_code = () => {
+    //if(promo_value.length ==)
+    // Checker' l'exactiture du code promo 3 secondes eprès l'entree ... en attendant, faire apparaitre un loader.... 
+    console.log(promo_value)
 }
 watchEffect(() => {
     total.value = store_cart.total_amount().toFixed(2)
@@ -224,6 +223,7 @@ hr {
     padding: 5px;
     width: 30%;
 }
+
 .promo input[type="text"] {
     padding: 0px 20px;
     border: 1px solid var(--secondary);
@@ -231,6 +231,7 @@ hr {
     outline: none;
     height: 50px;
 }
+
 .total {
     float: inline-end;
     padding: 25px 0px;

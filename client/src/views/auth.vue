@@ -75,7 +75,7 @@
                                         <span>Login with Google</span>
                                 </formbutton>
                         </GoogleLogin>
-                        <small :onclick="go_register"> I don't have yet an account ! </small>
+                        <small :onclick="() => action = 'register'"> I don't have yet an account ! </small>
                 </form>
                 <button v-if="action === 'login'" @click="yourLogoutFunction"> logout </button>
                 <span v-if="action === ''"></span>
@@ -160,10 +160,6 @@ const forgot = () => {
         action.value = 'forgot_password'
 }
 
-const go_register = () => {
-        action.value = 'register'
-}
-
 const inputs = ref({
         login: {
                 email: {
@@ -243,25 +239,6 @@ const inputs = ref({
 .auth img {
         width: 60px;
         height: 60px;
-}
-
-.googleLogin {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-}
-
-.googleLogin span {
-        margin: 0px 15px;
-}
-
-.btnGoogleLogin {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
 }
 
 small {

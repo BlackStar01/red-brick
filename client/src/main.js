@@ -9,7 +9,7 @@ import VueTelInput from 'vue-tel-input';
 import 'vue-tel-input/dist/vue-tel-input.css';
 import vue3GoogleLogin from 'vue3-google-login'
 
-console.log(routes)
+/* console.log(routes) */
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
