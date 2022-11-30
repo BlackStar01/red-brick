@@ -27,3 +27,7 @@ Le systeme doit montrer clairement les et les moins
 BUGS 
 
 Check for filter ... don't click on checkbox to filter ...it's a big problem
+
+CURRENT TASK 
+
+Use vue-auth for authentification 

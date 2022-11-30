@@ -82,7 +82,8 @@ const mot = inject('mot')
 const openCart = ref(false)
 
 const cat = localStorage.getItem('myCat');
-provide('modalCart', openCart)
+//provide('modalCart', {open: openCart.value, nameComponent: 'modalCart'})
+provide('dataModalCart', openCart)
 
 </script>
     

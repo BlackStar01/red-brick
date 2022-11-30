@@ -14,7 +14,7 @@
             <div class="products">
                 <card v-for="product in filtered_products" :key="product.id" :url="product.image" :alt="product.title"
                     :title="hide_long_text(product.title)" :price="product.price" :category="product.category"
-                    @handle_like="handle_like" @dis_like="remove_like" @item_clicked="add_item(product)">
+                    @handle_like="handle_like" @dis_like="remove_like" @item_clicked="add_item(product)" @click="moreDetails(product)">
                 </card>
             </div>
         </main>
@@ -23,7 +23,7 @@
 
 <script setup>
 
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, provide } from 'vue';
 import search from './search.vue';
 import axios from "axios";
 import card from './card.vue';
@@ -89,10 +89,18 @@ const handle_search = (e) => {
 }
 
 const add_item = (e) => {
+    const element = JSON.parse(JSON.stringify(e))
     /* JSON.parse(JSON.stringify(e)) to get de target in a proxy */
-    send_to_home('send_item', JSON.parse(JSON.stringify(e)))
-    store_cart.add_item({ 'item': JSON.parse(JSON.stringify(e)), 'number': 1 })
+    send_to_home('send_item', element)
+    store_cart.add_item({ 'item': element, 'number': 1 })
     console.log(store_cart.getItems)
+}
+
+const moreDetails = (e) => {
+    const currentProduct = JSON.parse(JSON.stringify(e))
+    console.log(currentProduct)
+    
+    provide('seeDetails', {product : currentProduct, openModal: true, nameComponent: ''})
 }
 
 const send_to_home = defineEmits('send_like', 'send_item')
