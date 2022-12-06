@@ -54,7 +54,7 @@
                         </div>
                         <formfeedback v-if="message !== ''"
                                 :svg_value="'M10.2426 16.3137L6 12.071L7.41421 10.6568L10.2426 13.4853L15.8995 7.8284L17.3137 9.24262L10.2426 16.3137Z'"
-                                :bg="bgnotif" :color="notif"> {{ message }}
+                                :feedback="feedback"> {{ message }}
                         </formfeedback>
                         <forminput class="login_input" :svg_value="inputs.login.email.svg"
                                 :placeholder="inputs.login.email.placeholder" :type="inputs.login.email.type">
@@ -99,10 +99,7 @@ const phone = ref('')
 const route = useRoute();
 const router = useRouter()
 
-/* console.log(`${route.name}`); */
-
-const notif = ref('')
-const bgnotif = ref('')
+const feedback = ref('error')
 const message = ref('')
 const loading = ref(false)
 
@@ -139,8 +136,7 @@ const try_login = async () => {
                 if (is_user) {
                         const res = await response.json()
                         message.value = res.message
-                        notif.value = '#004b23',
-                        bgnotif.value = '#4FCE66'
+                        feedback.value = 'success'
                         window.localStorage.setItem('token', res.token);
                         loading.value = true
                         action.value = ''
@@ -149,9 +145,9 @@ const try_login = async () => {
                         }, 2000);
                 }
                 else {
-                        message.value = "Failed"
-                        notif.value = '#dd0426'
-                        bgnotif.value = '#ff9696'
+                        
+                        message.value = "Failed";
+                        feedback.value = 'error';
                 }
         }
 }

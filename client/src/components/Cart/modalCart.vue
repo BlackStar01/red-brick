@@ -106,7 +106,6 @@ const check_promo_code = () => {
 watchEffect(() => {
     total.value = store_cart.total_amount().toFixed(2)
     console.log(isOpen + "zfzfzefzefez")
-
 })
 const goPayement = () => {}
 </script>

@@ -1,5 +1,0 @@
-https://fakestoreapi.com/docs
-
-Fastify
-
-Nest
